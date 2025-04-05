@@ -1,6 +1,6 @@
 <?php include 'connection/db.php'; ?>
 <?php
-$sql = "SELECT * FROM resume_info LIMIT 1";
+$sql = "SELECT * FROM resume_info ";
 $result = $conn->query($sql);
 $row = $result->fetch_assoc();
 ?>
@@ -31,9 +31,35 @@ $row = $result->fetch_assoc();
     <p><?php echo nl2br($row['projects']); ?></p>
 </div>
 
-<div class="container">
+<!-- <div class="container">
     <a href="update-form.php">[Edit Resume Info]</a>
-</div>
+</div> -->
+
+<!-- Include the Contact Module -->
+<?php include 'fornt-end/contact.php'; ?>
+
+<!-- JavaScript to add fade-in effect on scroll -->
+<script>
+    // Use Intersection Observer to add 'visible' class when a container is in view
+    const observerOptions = {
+        threshold: 0.2
+    };
+
+    const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                // Optionally, unobserve the element after it becomes visible
+                observer.unobserve(entry.target);
+            }
+        });
+    }, observerOptions);
+
+    // Target all containers
+    document.querySelectorAll('.container').forEach(container => {
+        observer.observe(container);
+    });
+</script>
 
 </body>
 </html>
